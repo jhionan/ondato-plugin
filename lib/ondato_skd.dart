@@ -19,22 +19,8 @@ class OndatoSkd {
   }
 
   static Stream<String> startIdentification() async* {
-    yield* _channel
-        .invokeMethod(_OndatoSdkChannel.startIdentification)
-        .asStream();
+    yield* _channel.invokeMethod(_OndatoSdkChannel.startIdentification).asStream();
   }
-/* 
- Ondato.init(config)
-        Ondato.starIdentification(this, object : Ondato.ResultListener {
-            override fun onSuccess(identificationId: String?) {
-                //Success
-            }
-
-            override fun onFailure(identificationId: String?, error: OndatoError) {
-                //Failure
-            }
-        })
- */
 }
 
 class _OndatoSdkChannel {
