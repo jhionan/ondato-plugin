@@ -17,13 +17,15 @@ class OndatoServiceConfiguration {
   OndatoFlowConfiguration flowConfiguration;
   OndatoEnvironment mode;
   OndatoLanguage language;
+  OndataCredencials credencials;
 
   OndatoServiceConfiguration({
     this.appearance,
     this.flowConfiguration,
     this.mode = OndatoEnvironment.test,
     this.language = OndatoLanguage.en,
-  });
+    this.credencials,
+  }) : assert(credencials == null, 'Credencials must be provide');
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,6 +33,29 @@ class OndatoServiceConfiguration {
       'flowConfiguration': flowConfiguration?.toMap(),
       'mode': mode?.toMap(),
       'language': language?.toMap(),
+      'credencials': credencials?.toMap(),
+    };
+  }
+}
+
+class OndataCredencials {
+  final String username;
+  final String password;
+  final String accessToken;
+  OndataCredencials({
+    this.username,
+    this.password,
+    this.accessToken,
+  })  : assert((username != null && password != null) && accessToken != null,
+            'Use or username and password or accessToken'),
+        assert((username == null && password == null) && accessToken == null,
+            'Use or username and password or accessToken');
+
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'password': password,
+      'accessToken': accessToken,
     };
   }
 }
