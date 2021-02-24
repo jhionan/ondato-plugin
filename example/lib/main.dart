@@ -50,7 +50,15 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              TextButton(
+                onPressed: () async => await OndatoSkd.startIdentification,
+                child: Text('startIdentification'),
+              )
+            ],
+          ),
         ),
       ),
     );
