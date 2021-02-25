@@ -14,7 +14,7 @@ class OndatoSkd {
   }
 
   static Future<bool> init(OndatoServiceConfiguration config) async {
-    _isInit = await _channel.invokeMethod<bool>(_OndatoSdkChannel.init);
+    _isInit = await _channel.invokeMethod<bool>(_OndatoSdkChannel.initialSetup);
     return _isInit;
   }
 
@@ -26,6 +26,6 @@ class OndatoSkd {
 class _OndatoSdkChannel {
   _OndatoSdkChannel._();
   static const String getPlatformVersion = 'getPlatformVersion';
-  static const String init = 'init';
+  static const String initialSetup = 'initialSetup';
   static const String startIdentification = 'startIdentification';
 }
