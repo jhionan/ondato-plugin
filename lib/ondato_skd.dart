@@ -14,7 +14,7 @@ class OndatoSkd {
   }
 
   static Future<bool> init(OndatoServiceConfiguration config) async {
-    _isInit = await _channel.invokeMethod<bool>(_OndatoSdkChannel.initialSetup);
+    _isInit = await _channel.invokeMethod<bool>(_OndatoSdkChannel.initialSetup, config.toMap());
     return _isInit;
   }
 
