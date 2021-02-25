@@ -25,7 +25,7 @@ class OndatoServiceConfiguration {
     this.mode = OndatoEnvironment.test,
     this.language = OndatoLanguage.en,
     this.credencials,
-  }) : assert(credencials == null, 'Credencials must be provide');
+  }) : assert(credencials != null, 'Credencials must be provide');
 
   Map<String, dynamic> toMap() {
     return {
@@ -46,9 +46,9 @@ class OndataCredencials {
     this.username,
     this.password,
     this.accessToken,
-  })  : assert((username != null && password != null) && accessToken != null,
-            'Use or username and password or accessToken'),
-        assert((username == null && password == null) && accessToken == null,
+  }) : assert(
+            ((username != null && password != null) && accessToken == null) ||
+                ((username == null && password == null) && accessToken != null),
             'Use or username and password or accessToken');
 
   Map<String, dynamic> toMap() {
