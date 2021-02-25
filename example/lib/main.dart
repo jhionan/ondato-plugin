@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:ondato_skd/ondato_config_model.dart';
 import 'package:ondato_skd/ondato_skd.dart';
 
 void main() {
@@ -54,7 +55,10 @@ class _MyAppState extends State<MyApp> {
             children: [
               Text('Running on: $_platformVersion\n'),
               TextButton(
-                onPressed: () async => await OndatoSkd.startIdentification,
+                onPressed: () async {
+                  await OndatoSkd.init(OndatoServiceConfiguration(credencials: OndataCredencials(accessToken: 'afd')));
+                  print(await OndatoSkd.startIdentification().first);
+                },
                 child: Text('startIdentification'),
               )
             ],
