@@ -176,3 +176,30 @@ class OndatoAppearance {
     };
   }
 }
+
+class OndatoException implements Exception {
+  OndatoError error;
+  String identificationId;
+  OndatoException(this.identificationId, error) {
+    switch (error) {
+      case 'cancelled':
+        this.error = OndatoError.cancelled;
+        break;
+      case 'invalidServerResponse':
+        this.error = OndatoError.invalidServerResponse;
+        break;
+      case 'invalidCredentials':
+        this.error = OndatoError.invalidCredentials;
+        break;
+      default:
+        this.error = OndatoError.unexpectedInternalError;
+    }
+  }
+}
+
+enum OndatoError {
+  cancelled,
+  invalidServerResponse,
+  invalidCredentials,
+  unexpectedInternalError
+}
