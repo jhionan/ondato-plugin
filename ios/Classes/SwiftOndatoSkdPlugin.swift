@@ -4,23 +4,24 @@ import OndatoSDK
 
 
 public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
+
     
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "ondato_skd", binaryMessenger: registrar.messenger())
         let instance = SwiftOndatoSkdPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
+        
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let args = call.arguments as? [String: Any] else {
-            return
-        }
+        
         switch call.method {
         case "getPlatformVersion":
-            result("iOS " + UIDevice.current.systemVersion)
+        result(FlutterMethodNotImplemented)
+            //result("iOS " + UIDevice.current.systemVersion)
         case "initialSetup":
-            create(args: args, flutterResult: result)
+            create(call: call, flutterResult: result)
         case "startIdentification":
             startIdentification(flutterResult: result)
         default:
@@ -29,12 +30,13 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
         
     }
     
-    
-    func create(args:
-                    Dictionary<String, Any>, flutterResult: FlutterResult) -> Void {
+    func create(call:
+                    FlutterMethodCall, flutterResult: FlutterResult) -> Void {
+        guard let args = call.arguments as? [String: Any] else {
+            return}
         guard let credencials : Dictionary<String, Any> = args["credencials"] as? [String: Any] else {
             flutterResult(false)
-          return
+            return
         }
         
         if let accessToken: String = credencials["accessToken"] as? String {
@@ -108,7 +110,7 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
             case "en":
                 selectedLanguage = OndatoSDK.OndatoSupportedLanguage.EN
             case "de":
-            selectedLanguage = OndatoSDK.OndatoSupportedLanguage.DE
+                selectedLanguage = OndatoSDK.OndatoSupportedLanguage.DE
             case "lt":
                 selectedLanguage = OndatoSDK.OndatoSupportedLanguage.LT
             default:
@@ -117,22 +119,37 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
             OndatoLocalizeHelper.language = selectedLanguage
         }
         
-        
         DispatchQueue.main.async {
             let sdk = OndatoService.shared.instantiateOndatoViewController()
             sdk.modalPresentationStyle = .fullScreen
             
-            sdk.present(sdk, animated: true, completion: nil)
+            self.present(sdk, animated: true, completion: nil)
         }
-        
-        
     }
     
-    func startIdentification(flutterResult: FlutterResult) {
+    func startIdentification(flutterResult: @escaping  FlutterResult) {
+        weak var delegate: OndatoSDK.OndatoFlowDelegate? =  {() -> OndatoSDK.OndatoFlowDelegate in
+            class FlowDelegate : OndatoSDK.OndatoFlowDelegate {
+                private let result : FlutterResult
+                init(r: @escaping FlutterResult) {
+                    self.result = r
+                }
+                func flowDidSucceed(identificationId: String?) {
+                    result(["identificationId": identificationId])
+                }
+                
+                func flowDidFail(identificationId: String?, error: OndatoServiceError) {
+                    result(["identificationId": identificationId, "error": String(error.rawValue)])
+                }  
+            }
+            let flowDelegate = FlowDelegate(r: flutterResult)
+            return flowDelegate
+        }()
         
+        OndatoService.shared.flowDelegate = delegate
+            
     }
 }
-
 
 extension Int {
     func toUIColor() -> UIColor {
