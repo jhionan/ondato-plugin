@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -56,7 +58,17 @@ class _MyAppState extends State<MyApp> {
               Text('Running on: $_platformVersion\n'),
               TextButton(
                 onPressed: () async {
-                  await OndatoSkd.init(OndatoServiceConfiguration(credencials: OndataCredencials(accessToken: 'afd')));
+                  await OndatoSkd.init(
+                    OndatoServiceConfiguration(
+                      credencials: OndataCredencials(accessToken: 'afd'),
+                      appearance: OndatoIosAppearance(
+                          buttonColor: Colors.redAccent,
+                          logoImageBase64: base64.encode((await rootBundle
+                                  .load('assets/grace_kennedy_logo.jpg'))
+                              .buffer
+                              .asUint8List())),
+                    ),
+                  );
                   print(await OndatoSkd.startIdentification().first);
                 },
                 child: Text('startIdentification'),
