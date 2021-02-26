@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -13,7 +14,7 @@ extension OndatoLanguageExt on OndatoLanguage {
 }
 
 class OndatoServiceConfiguration {
-  OndatoAppearance appearance;
+  OndatoIosAppearance appearance;
   OndatoFlowConfiguration flowConfiguration;
   OndatoEnvironment mode;
   OndatoLanguage language;
@@ -124,9 +125,9 @@ class OndatoFlowConfiguration {
   }
 }
 
-class OndatoAppearance {
+class OndatoIosAppearance {
   /// Logo image that can be shown in the splash screen
-  Uint8List logoImage;
+  String logoImageBase64;
 
   /// background color of the `ProgressBarView` which guides the user through the flow
   Color progressColor;
@@ -149,8 +150,14 @@ class OndatoAppearance {
   /// medium text font
   String mediumFontName;
 
-  OndatoAppearance({
-    this.logoImage,
+  Color headerColor;
+
+  Color acceptButtonColor;
+
+  Color declineButtonColor;
+  
+  OndatoIosAppearance({
+    this.logoImageBase64,
     this.progressColor,
     this.buttonColor,
     this.buttonTextColor,
@@ -158,6 +165,9 @@ class OndatoAppearance {
     this.errorTextColor,
     this.regularFontName,
     this.mediumFontName,
+    this.headerColor,
+    this.acceptButtonColor,
+    this.declineButtonColor,
   });
 
   /// appearance of header, body, acceptButton, declineButton in consent screen
@@ -165,7 +175,7 @@ class OndatoAppearance {
 
   Map<String, dynamic> toMap() {
     return {
-      'logoImage': logoImage,
+      'logoImageBase64': logoImageBase64,
       'progressColor': progressColor?.value,
       'buttonColor': buttonColor?.value,
       'buttonTextColor': buttonTextColor?.value,
@@ -173,6 +183,9 @@ class OndatoAppearance {
       'errorTextColor': errorTextColor?.value,
       'regularFontName': regularFontName,
       'mediumFontName': mediumFontName,
+      'headerColor': headerColor?.value,
+      'acceptButtonColor': acceptButtonColor?.value,
+      'declineButtonColor': declineButtonColor?.value,
     };
   }
 }
