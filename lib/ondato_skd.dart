@@ -14,12 +14,18 @@ class OndatoSkd {
   }
 
   static Future<bool> init(OndatoServiceConfiguration config) async {
-    _isInit = await _channel.invokeMethod<bool>(_OndatoSdkChannel.initialSetup, config.toMap());
+    _isInit = await _channel.invokeMethod<bool>(
+        _OndatoSdkChannel.initialSetup, config.toMap());
     return _isInit;
   }
 
   static Stream<String> startIdentification() async* {
-    yield* _channel.invokeMethod(_OndatoSdkChannel.startIdentification).asStream();
+    Map<String, dynamic> result =
+        await _channel.invokeMethod(_OndatoSdkChannel.startIdentification);
+    if (result.containsKey('error')) {
+      throw OndatoException(result['identificationId'], result['error']);
+    }
+    yield result['identificationId'];
   }
 }
 
