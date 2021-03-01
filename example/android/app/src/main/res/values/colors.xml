@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ondatoColorProgressBarAccent">#FF0099CC</color>
+    <color name="ondatoColorButtonText">#FF0099CC</color>
+    <color name="ondatoColorButtonBackgroundUnfocused">#FFeb4034</color>
+    <color name="ondatoColorButtonBackgroundFocusedStart">#FFeb4034</color>
+    <color name="ondatoColorButtonBackgroundFocusedCenter">#FFeb4034</color>
+    <color name="ondatoColorButtonBackgroundFocusedEnd">#FFeb4034</color>
+    <color name="ondatoColorErrorBg">#FF0099CC</color>
+    <color name="ondatoColorErrorText">#FF0099CC</color>
+    <color name="ondatoColorPrimaryDark">#FF0099CC</color>
+</resources>

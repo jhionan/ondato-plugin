@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ondato_skd.iml" filepath="$PROJECT_DIR$/ondato_skd.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/ondato_skd_android.iml" filepath="$PROJECT_DIR$/android/ondato_skd_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/example/android/ondato_skd_example_android.iml" filepath="$PROJECT_DIR$/example/android/ondato_skd_example_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/gkone-mobile-ondato-sdk.iml" filepath="$PROJECT_DIR$/.idea/gkone-mobile-ondato-sdk.iml" />
     </modules>
   </component>
 </project>
