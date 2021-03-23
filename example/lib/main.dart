@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   await OndatoSkd.init(
                     OndatoServiceConfiguration(
-                      credencials: OndataCredencials(accessToken: 'afd'),
+                      credencials: OndataCredencials(accessToken: '289e6679cce80713b792d07603588db49d89d354804586e4d65540be394f4960'),
                       appearance: OndatoIosAppearance(
                           buttonColor: Colors.redAccent,
                           logoImageBase64: base64.encode((await rootBundle
