@@ -60,27 +60,30 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun initialSetup(result: Result, args: Any) {
-        var map = args as? HashMap<String, Object>
+        val map = args as? HashMap<String, Any>
         if (map != null) {
-            var mode = map["mode"] as String
-            var credentials = map["credencials"] as HashMap<String, String>
-            var flowConfig = map["flowConfiguration"] as? HashMap<String, Boolean>
-            var language = map["language"] as String
-            var config = OndatoConfig.Builder()
+            val mode = map["mode"] as String
+            val credentials = map["credentials"] as HashMap<String, String>
+            val flowConfig = map["flowConfiguration"] as? HashMap<String, Boolean>
+            val language = map["language"] as String
+
+
+            val config = OndatoConfig.Builder()
                     .setToken(credentials["accessToken"] ?: "")
                     .setIdentificationId("identification id")
-                    .setCredentials(credentials["username"] ?: "", credentials["password"] ?: "")
                     .showSplashScreen(flowConfig?.get("showSplashScreen") ?: true) //default is true
-                    .showStartStartScreen(flowConfig?.get("showStartScreen")?: true) //default is true
-                    .showConsentScreen(flowConfig?.get("showConsentScreen") ?: true) //default is true
+                    .showStartScreen(flowConfig?.get("showStartScreen") ?: true) //default is true
+                    .showConsentScreen(flowConfig?.get("showConsentScreen")
+                            ?: true) //default is true
                     .showSelfieWithDocumentScreen(flowConfig?.get("showSelfieAndDocumentScreen")
                             ?: true) //default is true
-                    .showSuccessScreen(flowConfig?.get("showSuccessWindow")?: true) //default is true
+                    .showSuccessScreen(flowConfig?.get("showSuccessWindow")
+                            ?: true) //default is true
                     .ignoreLivenessError(flowConfig?.get("ignoreLivenessErrors")
                             ?: false) //default is false
                     .ignoreVerificationErrors(flowConfig?.get("ignoreVerificationErrors")
                             ?: false) //default is false
-                    .recordProcess(flowConfig?.get("recordProcess")?: true) //default is true
+                    .recordProcess(flowConfig?.get("recordProcess") ?: true) //default is true
                     .setMode(getMode(mode)) //default is TEST
                     .setLanguage(getLanguage(language)) // default is English
                     .build()

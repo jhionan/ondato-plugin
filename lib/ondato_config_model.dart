@@ -1,6 +1,6 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
 
 enum OndatoEnvironment { test, live }
 enum OndatoLanguage { en, de, lt }
@@ -18,15 +18,15 @@ class OndatoServiceConfiguration {
   OndatoFlowConfiguration flowConfiguration;
   OndatoEnvironment mode;
   OndatoLanguage language;
-  OndataCredencials credencials;
+  OndataCredencials credentials;
 
   OndatoServiceConfiguration({
     this.appearance,
     this.flowConfiguration,
     this.mode = OndatoEnvironment.test,
     this.language = OndatoLanguage.en,
-    this.credencials,
-  }) : assert(credencials != null, 'Credencials must be provide');
+    this.credentials,
+  }) : assert(credentials != null, 'Credencials must be provide');
 
   Map<String, dynamic> toMap() {
     return {
@@ -34,29 +34,25 @@ class OndatoServiceConfiguration {
       'flowConfiguration': flowConfiguration?.toMap(),
       'mode': mode?.toMap(),
       'language': language?.toMap(),
-      'credencials': credencials?.toMap(),
+      'credentials': credentials?.toMap(),
     };
   }
 }
 
 class OndataCredencials {
-  final String username;
-  final String password;
-  final String accessToken;
   OndataCredencials({
-    this.username,
-    this.password,
-    this.accessToken,
-  }) : assert(
-            ((username != null && password != null) && accessToken == null) ||
-                ((username == null && password == null) && accessToken != null),
-            'Use or username and password or accessToken');
+    @required this.accessToken,
+    @required this.identificationId,
+  })  : assert(
+            accessToken != null, 'Use or username and password or accessToken'),
+        assert(identificationId != null, 'IdentificationID must not be null');
+  final String accessToken;
+  final String identificationId;
 
-  Map<String, dynamic> toMap() {
+  Map<String, String> toMap() {
     return {
-      'username': username,
-      'password': password,
       'accessToken': accessToken,
+      'identificationId': identificationId
     };
   }
 }
@@ -155,7 +151,7 @@ class OndatoIosAppearance {
   Color acceptButtonColor;
 
   Color declineButtonColor;
-  
+
   OndatoIosAppearance({
     this.logoImageBase64,
     this.progressColor,

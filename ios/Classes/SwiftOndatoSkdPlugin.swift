@@ -47,19 +47,15 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
                     FlutterMethodCall, flutterResult: FlutterResult) -> Void {
         guard let args = call.arguments as? [String: Any] else {
             return}
-        guard let credencials : Dictionary<String, Any> = args["credencials"] as? [String: Any] else {
+        guard let credentials : Dictionary<String, Any> = args["credentials"] as? [String: Any] else {
             flutterResult(false)
             return
         }
         
-        if let accessToken: String = credencials["accessToken"] as? String {
+        if let accessToken: String = credentials["accessToken"] as? String {
             OndatoService.shared.initialize(accessToken: accessToken)
         }
-        if let username = credencials["username"] as? String, let password = credencials["password"] as? String {
-            OndatoService.shared.initialize(username: username, password: password)
-        }
-        
-        
+         
         let configuration: OndatoServiceConfiguration = OndatoService.shared.configuration
         if let appearance : [String: Any] = args["appearance"] as? [String:Any]{
             let ondatoAppearance =  OndatoAppearance()
@@ -119,7 +115,6 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
         
         if let flowConfiguration : [String: Any] = args["flowConfiguration"] as? [String:Any]{
             let ondatoFlowConfiguration = OndatoFlowConfiguration()
-            
             ondatoFlowConfiguration.showSplashScreen = (flowConfiguration["showSplashScreen"] as? Bool) ?? true
             ondatoFlowConfiguration.showStartScreen = (flowConfiguration["showStartScreen"] as? Bool) ?? true
             ondatoFlowConfiguration.showConsentScreen = (flowConfiguration["showConsentScreen"] as? Bool) ?? true
