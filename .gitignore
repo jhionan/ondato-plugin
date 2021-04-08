@@ -274,3 +274,12 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,androidstudio,vscode,xcode,cocoapods,gradle
 >>>>>>> 4c07164b2e115e796d0bba3342c0b8d1ea86596d
+.vscode/launch.json
+android/.idea/.name
+android/.idea/caches/build_file_checksums.ser
+android/.idea/compiler.xml
+android/.idea/gradle.xml
+android/.idea/jarRepositories.xml
+android/.idea/misc.xml
+android/.idea/modules.xml
+android/.idea/vcs.xml

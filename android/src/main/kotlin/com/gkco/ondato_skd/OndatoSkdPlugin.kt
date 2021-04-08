@@ -1,6 +1,7 @@
 package com.gkco.ondato_skd
 
 import android.content.Context
+import android.util.Log
 import androidx.annotation.NonNull
 import com.kyc.ondato.Ondato
 import com.kyc.ondato.OndatoConfig
@@ -63,14 +64,16 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
         val map = args as? HashMap<String, Any>
         if (map != null) {
             val mode = map["mode"] as String
-            val credentials = map["credentials"] as HashMap<String, String>
+            val credentials = map["credentials"] as HashMap<String?, String?>
             val flowConfig = map["flowConfiguration"] as? HashMap<String, Boolean>
             val language = map["language"] as String
-
+            
+            val identificationId = credentials["identificationId"]?: ""
+            Log.d("ONDATO SDK", "identificationID $identificationId")
 
             val config = OndatoConfig.Builder()
                     .setToken(credentials["accessToken"] ?: "")
-                    .setIdentificationId("identification id")
+                    .setIdentificationId(identificationId)
                     .showSplashScreen(flowConfig?.get("showSplashScreen") ?: true) //default is true
                     .showStartScreen(flowConfig?.get("showStartScreen") ?: true) //default is true
                     .showConsentScreen(flowConfig?.get("showConsentScreen")
@@ -80,7 +83,7 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
                     .showSuccessScreen(flowConfig?.get("showSuccessWindow")
                             ?: true) //default is true
                     .ignoreLivenessError(flowConfig?.get("ignoreLivenessErrors")
-                            ?: false) //default is false
+                            ?: false) //
                     .ignoreVerificationErrors(flowConfig?.get("ignoreVerificationErrors")
                             ?: false) //default is false
                     .recordProcess(flowConfig?.get("recordProcess") ?: true) //default is true
