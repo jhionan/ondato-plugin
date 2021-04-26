@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
                               .asUint8List())),
                     ),
                   );
-                  print(await OndatoSkd.startIdentification().first);
+                  print(await OndatoSkd.startIdentification());
                 },
                 child: Text('startIdentification'),
               )

@@ -19,13 +19,13 @@ class OndatoSkd {
     return _isInit;
   }
 
-  static Stream<String> startIdentification() async* {
-    Map<String, dynamic> result =
-        await _channel.invokeMethod(_OndatoSdkChannel.startIdentification);
+  static Future<String> startIdentification() async {
+    final result =
+    await _channel.invokeMethod(_OndatoSdkChannel.startIdentification);
     if (result.containsKey('error')) {
       throw OndatoException(result['identificationId'], result['error']);
     }
-    yield result['identificationId'];
+    return result['identificationId'];
   }
 }
 
