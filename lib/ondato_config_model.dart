@@ -87,8 +87,8 @@ class OndatoFlowConfiguration {
     this.showConsentScreen = true,
     this.showSelfieAndDocumentScreen = true,
     this.showSuccessWindow = true,
-    this.ignoreLivenessErrors = false,
-    this.ignoreVerificationErrors = false,
+    this.ignoreLivenessErrors = true,
+    this.ignoreVerificationErrors = true,
     this.recordProcess = true,
   });
 

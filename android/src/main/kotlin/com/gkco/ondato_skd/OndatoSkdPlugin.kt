@@ -88,9 +88,9 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
                     .showSuccessScreen(flowConfig?.get("showSuccessWindow")
                             ?: true) //default is true
                     .ignoreLivenessError(flowConfig?.get("ignoreLivenessErrors")
-                            ?: false) //
+                            ?: true) //
                     .ignoreVerificationErrors(flowConfig?.get("ignoreVerificationErrors")
-                            ?: false) //default is false
+                            ?: true) //default is false
                     .recordProcess(flowConfig?.get("recordProcess") ?: true) //default is true
                     .setMode(getMode(mode)) //default is TEST
                     .setLanguage(getLanguage(language)) // default is English

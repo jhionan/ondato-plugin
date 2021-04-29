@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:ondato_skd/ondato_config_model.dart';
 
 class OndatoSkd {
+  OndatoSkd._();
   static const MethodChannel _channel = const MethodChannel('ondato_skd');
   static bool _isInit = false;
 
@@ -21,7 +22,7 @@ class OndatoSkd {
 
   static Future<String> startIdentification() async {
     final result =
-    await _channel.invokeMethod(_OndatoSdkChannel.startIdentification);
+        await _channel.invokeMethod(_OndatoSdkChannel.startIdentification);
     if (result.containsKey('error')) {
       throw OndatoException(result['identificationId'], result['error']);
     }
