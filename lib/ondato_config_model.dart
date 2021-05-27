@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -50,10 +51,7 @@ class OndataCredencials {
   final String identificationId;
 
   Map<String, String> toMap() {
-    return {
-      'accessToken': accessToken,
-      'identificationId': identificationId
-    };
+    return {'accessToken': accessToken, 'identificationId': identificationId};
   }
 }
 
@@ -211,4 +209,41 @@ enum OndatoError {
   invalidServerResponse,
   invalidCredentials,
   unexpectedInternalError
+}
+
+class OndatoResponse {
+  bool success;
+  String identificationId;
+  String error; 
+  OndatoResponse({
+  this.success,
+  this.identificationId,
+  this.error,
+  });
+  
+
+  
+
+  Map<String, dynamic> toMap() {
+    return {
+      'success': success,
+      'identificationId': identificationId,
+      'error': error,
+    };
+  }
+
+  factory OndatoResponse.fromMap(Map<String, dynamic> map) {
+    return OndatoResponse(
+      success: map['success'],
+      identificationId: map['identificationId'],
+      error: map['error'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory OndatoResponse.fromJson(String source) => OndatoResponse.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'OndatoResponse(success: $success, identificationId: $identificationId, error: $error)';
 }

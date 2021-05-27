@@ -61,10 +61,11 @@ class _MyAppState extends State<MyApp> {
                   await OndatoSkd.init(
                     OndatoServiceConfiguration(
                       credentials: OndataCredencials(
-                          accessToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IkE0QkU3OUQ0NTZCNDQ3NTk2Rjk3MzY5Q0E4QzhBMEU2NkRGRUQ1M0IiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJwTDU1MUZhMFIxbHZsemFjcU1pZzVtMy0xVHMifQ.eyJuYmYiOjE2MTgyMzU0NjAsImV4cCI6MTYxODMyMTg2MCwiaXNzIjoiaHR0cHM6Ly9pZC5vbmRhdG8uY29tIiwiYXVkIjpbImh0dHBzOi8vaWQub25kYXRvLmNvbS9yZXNvdXJjZXMiLCJ2ZXJpZmlkX3B1YmxpY19hcGkiXSwiY2xpZW50X2lkIjoiYXBwLm9uZGF0by5jcmVkaXRpbmZvamFtYWljYWRlbW8iLCJjbGllbnRfYXBwbGljYXRpb25faWQiOiI1Y2JiM2QxYi00YmQwLTQ2NzgtOTAzYS1lYWM3ZmQ4YjJjYjQiLCJzY29wZSI6WyJ2ZXJpZmlkX3B1YmxpY19hcGkiXX0.nU_sxMdJxeA7uXBidjk9Mregip4IgH1dxqzQPwLwCyp4EJaeQsE1gSme4Hn0dF5TETZcI9KRNkR1wwJlRHgDvqjZjaUid1YY8iZJ8Nmc7gtiEt-F4U7WWVxb7nCwzhWW-HBZ3oyNWoW7aQm2558z_b2ll9vKSa4mGSFSxozEwCwwlQyJAGhXci1YK3UMckOzYTGi0sS8H2RjY6R8jWp55LsZJ0VPjJVQgYErBpMDG_cHH5G3ehs_RWJcX2o5LqgsSw2UDDLIY8vbAAU5E4YR6aCM2YfH_7kWAHTigVFgIyY-Kq_8_WpTpsraQ_w4e1dMfVemOcM4uSrf9RfZMPsAVA',
-                          identificationId: '0fe67a1171424a08ad8244f480707ea2'),
+                          accessToken:
+                              'eyJhbGciOiJSUzI1NiIsImtpZCI6IkE0QkU3OUQ0NTZCNDQ3NTk2Rjk3MzY5Q0E4QzhBMEU2NkRGRUQ1M0IiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJwTDU1MUZhMFIxbHZsemFjcU1pZzVtMy0xVHMifQ.eyJuYmYiOjE2MjIwNDYwMTAsImV4cCI6MTYyMjEzMjQxMCwiaXNzIjoiaHR0cHM6Ly9pZC5vbmRhdG8uY29tIiwiYXVkIjpbImh0dHBzOi8vaWQub25kYXRvLmNvbS9yZXNvdXJjZXMiLCJ2ZXJpZmlkX3B1YmxpY19hcGkiXSwiY2xpZW50X2lkIjoiYXBwLm9uZGF0by5jcmVkaXRpbmZvamFtYWljYWRlbW8iLCJjbGllbnRfYXBwbGljYXRpb25faWQiOiI1Y2JiM2QxYi00YmQwLTQ2NzgtOTAzYS1lYWM3ZmQ4YjJjYjQiLCJzY29wZSI6WyJ2ZXJpZmlkX3B1YmxpY19hcGkiXX0.h7RU_CoH1yU59BPcvgZOsmGbCb5h_74LG6ng97YDC1-FWcAauVohcLitQVa7wAs2e3IgLrimQxT56hkXcA3yP8p4uypwDr2B_wpalIbdW3drMCeEBthO1axeld-OfcfxIl9Kcd8jkampYP6vh7KBC-cS7a2cE_dHFZJTt68WdZj6ZBClcBnXzLsU-iwE1Hbu5LB0-zgaJxxt72xv0QeoSNh_y2UTRw9w149gZpcAlP0HEy5UH7nbhV0IBKbkER7RoxY45SJTma7z6DLfCTquai5i4FoHsmxAx_dnSVjtrN9wQXTQNxU77HZIOrltgpZ-q1m6II3WHtTt0qDeuf14ow',
+                          identificationId: 'afade00bc22c44d09c4ca1ac077f230e'),
                       mode: OndatoEnvironment.live,
-                      appearance: OndatoIosAppearance(  
+                      appearance: OndatoIosAppearance(
                           buttonColor: Colors.redAccent,
                           logoImageBase64: base64.encode((await rootBundle
                                   .load('assets/grace_kennedy_logo.jpg'))
@@ -73,6 +74,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                   );
                   print(await OndatoSkd.startIdentification());
+                  print('finished process');
                 },
                 child: Text('startIdentification'),
               )

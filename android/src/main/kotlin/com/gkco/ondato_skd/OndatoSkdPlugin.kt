@@ -48,14 +48,15 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
         try {
             Ondato.starIdentification(mContext, object : Ondato.ResultListener {
                 override fun onSuccess(identificationId: String?) {
-                    result.success(mapOf("identificationId" to identificationId))
+                    result.success(mapOf<String, Any?>("identificationId" to identificationId, "success" to true))
                 }
 
                 override fun onFailure(identificationId: String?, error: OndatoError) {
                     result.success(
-                        mapOf(
+                        mapOf<String, Any?>(
                             "identificationId" to identificationId,
-                            "error" to error.message
+                            "error" to error.message,
+                            "success" to false
                         )
                     )
                 }
