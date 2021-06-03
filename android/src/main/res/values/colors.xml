@@ -7,7 +7,7 @@
     <color name="ondatoColorButtonBackgroundFocusedCenter">#E11A27</color>
     <color name="ondatoColorButtonBackgroundFocusedEnd">#E11A27</color>
     <color name="ondatoColorErrorBg">#E11A27</color>
-    <color name="ondatoColorErrorText">#E11A27</color>
+    <color name="ondatoColorErrorText">#FFFFFF</color>
     <color name="ondatoColorBackground">#E11A27</color>
     <color name="ondatoColorPrimaryDark">#E11A27</color>
 </resources>
