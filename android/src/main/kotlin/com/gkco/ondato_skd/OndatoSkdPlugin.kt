@@ -86,6 +86,7 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
                             ?: true) //default is true
                     .showSelfieWithDocumentScreen(flowConfig?.get("showSelfieAndDocumentScreen")
                             ?: true) //default is true
+                            .setDriverLicenseBacksideRequired(flowConfig?.get("askDriverLicenseBackSide"))
                     .showSuccessScreen(flowConfig?.get("showSuccessWindow")
                             ?: true) //default is true
                     .ignoreLivenessError(flowConfig?.get("ignoreLivenessErrors")

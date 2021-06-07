@@ -79,16 +79,20 @@ class OndatoFlowConfiguration {
 
   /// Should the verification process be recorded
   bool recordProcess;
-  OndatoFlowConfiguration({
-    this.showSplashScreen = true,
-    this.showStartScreen = true,
-    this.showConsentScreen = true,
-    this.showSelfieAndDocumentScreen = true,
-    this.showSuccessWindow = true,
-    this.ignoreLivenessErrors = true,
-    this.ignoreVerificationErrors = true,
-    this.recordProcess = true,
-  });
+
+  /// As for back of drive licence
+  bool askDriverLicenseBackSide;
+
+  OndatoFlowConfiguration(
+      {this.showSplashScreen = true,
+      this.showStartScreen = true,
+      this.showConsentScreen = true,
+      this.showSelfieAndDocumentScreen = true,
+      this.showSuccessWindow = true,
+      this.ignoreLivenessErrors = true,
+      this.ignoreVerificationErrors = true,
+      this.recordProcess = true,
+      this.askDriverLicenseBackSide = true});
 
   Map<String, dynamic> toMap() {
     return {
@@ -100,6 +104,7 @@ class OndatoFlowConfiguration {
       'ignoreLivenessErrors': ignoreLivenessErrors,
       'ignoreVerificationErrors': ignoreVerificationErrors,
       'recordProcess': recordProcess,
+      'askDriverLicenseBackSide': askDriverLicenseBackSide,
     };
   }
 
@@ -214,15 +219,12 @@ enum OndatoError {
 class OndatoResponse {
   bool success;
   String identificationId;
-  String error; 
+  String error;
   OndatoResponse({
-  this.success,
-  this.identificationId,
-  this.error,
+    this.success,
+    this.identificationId,
+    this.error,
   });
-  
-
-  
 
   Map<String, dynamic> toMap() {
     return {
@@ -242,8 +244,10 @@ class OndatoResponse {
 
   String toJson() => json.encode(toMap());
 
-  factory OndatoResponse.fromJson(String source) => OndatoResponse.fromMap(json.decode(source));
+  factory OndatoResponse.fromJson(String source) =>
+      OndatoResponse.fromMap(json.decode(source));
 
   @override
-  String toString() => 'OndatoResponse(success: $success, identificationId: $identificationId, error: $error)';
+  String toString() =>
+      'OndatoResponse(success: $success, identificationId: $identificationId, error: $error)';
 }
