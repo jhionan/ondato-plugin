@@ -1,23 +1,22 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 
 enum OndatoEnvironment { test, live }
 enum OndatoLanguage { en, de, lt }
 
 extension OndatoEnvironmentExt on OndatoEnvironment {
-  String toMap() => this.toString().split('.')?.elementAt(1);
+  String toMap() => this.toString().split('.').elementAt(1);
 }
 
 extension OndatoLanguageExt on OndatoLanguage {
-  String toMap() => this.toString().split('.')?.elementAt(1);
+  String toMap() => this.toString().split('.').elementAt(1);
 }
 
 class OndatoServiceConfiguration {
-  OndatoIosAppearance appearance;
-  OndatoFlowConfiguration flowConfiguration;
-  OndatoEnvironment mode;
+  OndatoIosAppearance? appearance;
+  OndatoFlowConfiguration? flowConfiguration;
+  OndatoEnvironment? mode;
   OndatoLanguage language;
   OndataCredencials credentials;
 
@@ -26,27 +25,25 @@ class OndatoServiceConfiguration {
     this.flowConfiguration,
     this.mode = OndatoEnvironment.test,
     this.language = OndatoLanguage.en,
-    this.credentials,
-  }) : assert(credentials != null, 'Credencials must be provide');
+    required this.credentials,
+  });
 
   Map<String, dynamic> toMap() {
     return {
       'appearance': appearance?.toMap(),
       'flowConfiguration': flowConfiguration?.toMap(),
       'mode': mode?.toMap(),
-      'language': language?.toMap(),
-      'credentials': credentials?.toMap(),
+      'language': language.toMap(),
+      'credentials': credentials.toMap(),
     };
   }
 }
 
 class OndataCredencials {
   OndataCredencials({
-    @required this.accessToken,
-    @required this.identificationId,
-  })  : assert(
-            accessToken != null, 'Use or username and password or accessToken'),
-        assert(identificationId != null, 'IdentificationID must not be null');
+    required this.accessToken,
+    required this.identificationId,
+  });
   final String accessToken;
   final String identificationId;
 
@@ -109,8 +106,6 @@ class OndatoFlowConfiguration {
   }
 
   factory OndatoFlowConfiguration.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return OndatoFlowConfiguration(
       showSplashScreen: map['showSplashScreen'],
       showStartScreen: map['showStartScreen'],
@@ -126,34 +121,34 @@ class OndatoFlowConfiguration {
 
 class OndatoIosAppearance {
   /// Logo image that can be shown in the splash screen
-  String logoImageBase64;
+  String? logoImageBase64;
 
   /// background color of the `ProgressBarView` which guides the user through the flow
-  Color progressColor;
+  Color? progressColor;
 
   /// background color of the primary action buttons
-  Color buttonColor;
+  Color? buttonColor;
 
   /// background color of the primary action buttons text
-  Color buttonTextColor;
+  Color? buttonTextColor;
 
   /// background color of the error message background
-  Color errorColor;
+  Color? errorColor;
 
   /// background color of the error message text color
-  Color errorTextColor;
+  Color? errorTextColor;
 
   /// regular text font
-  String regularFontName;
+  String? regularFontName;
 
   /// medium text font
-  String mediumFontName;
+  String? mediumFontName;
 
-  Color headerColor;
+  Color? headerColor;
 
-  Color acceptButtonColor;
+  Color? acceptButtonColor;
 
-  Color declineButtonColor;
+  Color? declineButtonColor;
 
   OndatoIosAppearance({
     this.logoImageBase64,
@@ -190,7 +185,7 @@ class OndatoIosAppearance {
 }
 
 class OndatoException implements Exception {
-  OndatoError error;
+  OndatoError? error;
   String identificationId;
   OndatoException(this.identificationId, error) {
     switch (error) {
@@ -217,9 +212,9 @@ enum OndatoError {
 }
 
 class OndatoResponse {
-  bool success;
-  String identificationId;
-  String error;
+  bool? success;
+  String? identificationId;
+  String? error;
   OndatoResponse({
     this.success,
     this.identificationId,
