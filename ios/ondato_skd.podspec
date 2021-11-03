@@ -13,12 +13,12 @@ Implement ondato SDK for android and ios
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }
-  s.source           = {:path => '/Users/rian/.cocoapods/repos/ONDATO/', tag: '1.6.4' }
+  s.source           = { :path => '.'}
+
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
 
-  s.dependency 'OndatoSDKiOS'
+  s.dependency 'OndatoSDKiOS', '~> 1.6.4'
 
   s.platform = :ios, '11.0'
 

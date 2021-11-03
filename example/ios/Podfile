@@ -2,7 +2,9 @@
 # platform :ios, '9.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
-source 'git@github.com:jhionan/ondato-sdk-ios.git'
+#source 'git@github.com:jhionan/ondato-sdk-ios.git'
+source 'git@ssh.dev.azure.com:v3/GKDigital/GKOne/ondato-sdk-ios'
+
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
