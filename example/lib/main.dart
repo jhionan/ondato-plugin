@@ -62,12 +62,11 @@ class _MyAppState extends State<MyApp> {
                     OndatoServiceConfiguration(
                       credentials: OndataCredencials(
                           accessToken:
-                              'eyJhbGciOiJSUzI1NiIsImtpZCI6IkE0QkU3OUQ0NTZCNDQ3NTk2Rjk3MzY5Q0E4QzhBMEU2NkRGRUQ1M0IiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJwTDU1MUZhMFIxbHZsemFjcU1pZzVtMy0xVHMifQ.eyJuYmYiOjE2MzU5NjI0NDcsImV4cCI6MTYzNjA0ODg0NywiaXNzIjoiaHR0cHM6Ly9zYW5kYm94LWlkLm9uZGF0by5jb20iLCJhdWQiOlsiaHR0cHM6Ly9zYW5kYm94LWlkLm9uZGF0by5jb20vcmVzb3VyY2VzIiwidmVyaWZpZF9wdWJsaWNfYXBpIl0sImNsaWVudF9pZCI6ImFwcC5vbmRhdG8uZ3JhY2Uta2VubmVkeS0xIiwiY2xpZW50X2FwcGxpY2F0aW9uX2lkIjoiQkRDMERENUMtOUU1Ny00MUFBLUE3NUQtMTJEMUU0NTE3RUE0Iiwic2NvcGUiOlsidmVyaWZpZF9wdWJsaWNfYXBpIl19.OCpe8ShmS664TV1yElDzHcmBapvxlU7To2e0UBmY8KUblnS7r0WpQsC7MaIdpcLODGJ5tLldEjXlXE4eteTX1CNFARWeHPgfvieohSHqZuxq2FW2sQegkGYWO6TM8r9RUNk8FtaUaoIAmI7o2sfvXa9jV0MMM7ZS-7eCmXICvo2dsxEgnlNZS5tIdlDc3CcqveqO5a_1cmJ7mQYxRrW3i7soOj4s7qFex_ViO0zYcufpu7GgNLbwPQkgtxdNgqhSUQFench_u5nOQo6ZgaFOEC6dhZUkhmbPiewKF4TluKrFo4Mi8KcAD4glEMTP6uumHaDfSnS5vMFL9F6pJ9dA2w',
-                          identificationId: '7c1e5813eae84113b58ea5b2f6c70b2c'),
+                              'eyJhbGciOiJSUzI1NiIsImtpZCI6IkE0QkU3OUQ0NTZCNDQ3NTk2Rjk3MzY5Q0E4QzhBMEU2NkRGRUQ1M0IiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJwTDU1MUZhMFIxbHZsemFjcU1pZzVtMy0xVHMifQ.eyJuYmYiOjE2Mzc5NTMxNTQsImV4cCI6MTYzODAzOTU1NCwiaXNzIjoiaHR0cHM6Ly9zYW5kYm94LWlkLm9uZGF0by5jb20iLCJhdWQiOlsiaHR0cHM6Ly9zYW5kYm94LWlkLm9uZGF0by5jb20vcmVzb3VyY2VzIiwidmVyaWZpZF9wdWJsaWNfYXBpIl0sImNsaWVudF9pZCI6ImFwcC5vbmRhdG8uZ3JhY2Uta2VubmVkeS0xIiwiY2xpZW50X2FwcGxpY2F0aW9uX2lkIjoiQkRDMERENUMtOUU1Ny00MUFBLUE3NUQtMTJEMUU0NTE3RUE0Iiwic2NvcGUiOlsidmVyaWZpZF9wdWJsaWNfYXBpIl19.qkQkV6bePcuQoYUgVSEdw3b7vySocoml7Dxazmnm70p4g3UiXOQXgSPNx3MFwjbAm7tE55cvFX0NHzfAjYhIaJ5izNm-ZsDduXc-YErrcN3etWt4uH-EmkMfcn481HMhWYxphHaNjx3voY-kfMEJKdgbe1lxAPSeQCH_lGS-BQOlABfXzNiHgehUFESrI-0xOARd1b4SgplrgI6tF4T1HIH16QutdK1ipLZ63di8xXE6ME1Dxd-bvP2uwgsC-AaEscGLYo0k39-wuPZOEsdzTMDMAjDvjfxquX86LSBFF179NgYwQ-pBOuUk94rM1y8gmtNA_fWz-uSVfjfSHUGJhA',
+                          identificationId: '76a4b48b931e415eab19456c8bd65ca2'),
                       mode: OndatoEnvironment.test,
-                      flowConfiguration: OndatoFlowConfiguration(
-                        recordProcess: false
-                      ),
+                      flowConfiguration:
+                          OndatoFlowConfiguration(recordProcess: false),
                       appearance: OndatoIosAppearance(
                           buttonColor: Colors.redAccent,
                           logoImageBase64: base64.encode((await rootBundle
