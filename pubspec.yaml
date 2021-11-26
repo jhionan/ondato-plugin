@@ -1,8 +1,8 @@
 name: ondato_skd
 description: Implement ondato SDK for android and ios
-version: 2.0.0
-author:
-homepage:
+version: 2.1.0
+
+
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
