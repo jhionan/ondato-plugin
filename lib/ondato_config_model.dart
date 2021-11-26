@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
 
-
 enum OndatoEnvironment { test, live }
 enum OndatoLanguage { en, de, lt }
 
