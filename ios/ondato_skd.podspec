@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ondato_skd'
-  s.version          = '0.0.1'
+  s.version          = '2.1.0'
   s.summary          = 'Implement ondato SDK for android and ios'
   s.description      = <<-DESC
 Implement ondato SDK for android and ios
@@ -13,12 +13,12 @@ Implement ondato SDK for android and ios
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }
-  s.source           = {:path => '/Users/rian/.cocoapods/repos/ONDATO/', tag: '1.6.4' }
+  s.source           = { :path => '.'}
+
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
 
-  s.dependency 'OndatoSDKiOS'
+  s.dependency 'OndatoSDKiOS', '~> 1.8.9'
 
   s.platform = :ios, '11.0'
 

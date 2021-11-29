@@ -48,7 +48,12 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
         try {
             Ondato.starIdentification(mContext, object : Ondato.ResultListener {
                 override fun onSuccess(identificationId: String?) {
-                    result.success(mapOf<String, Any?>("identificationId" to identificationId, "success" to true))
+                    result.success(
+                        mapOf<String, Any?>(
+                            "identificationId" to identificationId,
+                            "success" to true
+                        )
+                    )
                 }
 
                 override fun onFailure(identificationId: String?, error: OndatoError) {
@@ -67,41 +72,58 @@ class OndatoSkdPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun initialSetup(result: Result, args: Any) {
-        val map = args as? HashMap<String, Any>
-        if (map != null) {
-            val mode = map["mode"] as String
-            val credentials = map["credentials"] as HashMap<String?, String?>
-            val flowConfig = map["flowConfiguration"] as? HashMap<String, Boolean>
-            val language = map["language"] as String
-            
-            val identificationId = credentials["identificationId"]?: ""
-            Log.d("ONDATO SDK", "identificationID $identificationId")
+        try {
+            val map = args as? HashMap<String, Any>
+            if (map != null) {
+                val mode = map["mode"] as String
+                val credentials = map["credentials"] as HashMap<String?, String?>
+                val flowConfig = map["flowConfiguration"] as? HashMap<String, Boolean>
+                val language = map["language"] as String
 
-            val config = OndatoConfig.Builder()
+                val identificationId = credentials["identificationId"] ?: ""
+                Log.d("ONDATO SDK", "identificationID $identificationId")
+
+                val config = OndatoConfig.Builder()
                     .setToken(credentials["accessToken"] ?: "")
                     .setIdentificationId(identificationId)
                     .showSplashScreen(flowConfig?.get("showSplashScreen") ?: true) //default is true
                     .showStartScreen(flowConfig?.get("showStartScreen") ?: true) //default is true
-                    .showConsentScreen(flowConfig?.get("showConsentScreen")
-                            ?: true) //default is true
-                    .showSelfieWithDocumentScreen(flowConfig?.get("showSelfieAndDocumentScreen")
-                            ?: true) //default is true
-                            .setDriverLicenseBacksideRequired(flowConfig?.get("askDriverLicenseBackSide") ?: true)
-                    .showSuccessScreen(flowConfig?.get("showSuccessWindow")
-                            ?: true) //default is true
-                    .ignoreLivenessError(flowConfig?.get("ignoreLivenessErrors")
-                            ?: true) //
-                    .ignoreVerificationErrors(flowConfig?.get("ignoreVerificationErrors")
-                            ?: true) //default is false
+                    .showConsentScreen(
+                        flowConfig?.get("showConsentScreen")
+                            ?: true
+                    ) //default is true
+                    .showSelfieWithDocumentScreen(
+                        flowConfig?.get("showSelfieAndDocumentScreen")
+                            ?: true
+                    ) //default is true
+                    .setDriverLicenseBacksideRequired(
+                        flowConfig?.get("askDriverLicenseBackSide") ?: true
+                    )
+                    .showSuccessScreen(
+                        flowConfig?.get("showSuccessWindow")
+                            ?: true
+                    ) //default is true
+                    .ignoreLivenessError(
+                        flowConfig?.get("ignoreLivenessErrors")
+                            ?: true
+                    ) //
+                    .ignoreVerificationErrors(
+                        flowConfig?.get("ignoreVerificationErrors")
+                            ?: true
+                    ) //default is false
                     .recordProcess(flowConfig?.get("recordProcess") ?: true) //default is true
                     .setMode(getMode(mode)) //default is TEST
                     .setLanguage(getLanguage(language)) // default is English
                     .build()
-            Ondato.init(config)
-            result.success(true)
-        } else {
+                Ondato.init(config)
+                result.success(true)
+            } else {
+                result.error(null, "", "Missing parameters")
+            }
+        } catch (e: Exception) {
             result.error(null, "", "Missing parameters")
         }
+
     }
 
     private fun getLanguage(str: String?): Language {

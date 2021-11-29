@@ -53,10 +53,10 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
         }
         
         if let accessToken: String = credentials["accessToken"] as? String {
-            OndatoService.shared.initialize(accessToken: accessToken)
+            Ondato.sdk.initialize(accessToken: accessToken)
         }
          
-        let configuration: OndatoServiceConfiguration = OndatoService.shared.configuration
+        let configuration: OndatoServiceConfiguration = Ondato.sdk.configuration
         if let appearance : [String: Any] = args["appearance"] as? [String:Any]{
             let ondatoAppearance =  OndatoAppearance()
             
@@ -82,13 +82,6 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
                 ondatoAppearance.errorTextColor = errorTextColor.toUIColor()
             }
             
-            if let regularFontName : String = appearance["regularFontName"] as? String {
-                ondatoAppearance.regularFontName = regularFontName
-            }
-            
-            if let mediumFontName : String = appearance["mediumFontName"] as? String {
-                ondatoAppearance.mediumFontName = mediumFontName
-            }
             
             if let headerColor : Int = appearance["headerColor"] as? Int {
                 ondatoAppearance.consentWindow.header.color = headerColor.toUIColor()
@@ -101,13 +94,7 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
             if let declineButtonColor : Int = appearance["declineButtonColor"] as? Int {
                 ondatoAppearance.consentWindow.declineButton.backgroundColor = declineButtonColor.toUIColor()
             }
-            if let logoImageBase64 : String = appearance["logoImageBase64"] as? String {
-                let data : Data = Data(base64Encoded: logoImageBase64, options: .ignoreUnknownCharacters)!
-                ondatoAppearance.logoImage = UIImage(data: data)
-            }
-            
-            
-            
+                
             
             configuration.appearance = ondatoAppearance
             
@@ -120,10 +107,9 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
             ondatoFlowConfiguration.showConsentScreen = (flowConfiguration["showConsentScreen"] as? Bool) ?? true
             ondatoFlowConfiguration.showSelfieAndDocumentScreen = (flowConfiguration["showSelfieAndDocumentScreen"] as? Bool) ?? true
             ondatoFlowConfiguration.showSuccessWindow = (flowConfiguration["showSuccessWindow"] as? Bool) ?? true
-            ondatoFlowConfiguration.ignoreLivenessErrors = (flowConfiguration["ignoreLivenessErrors"] as? Bool) ?? false
-            ondatoFlowConfiguration.ignoreVerificationErrors = (flowConfiguration["ignoreVerificationErrors"] as? Bool) ?? false
             ondatoFlowConfiguration.recordProcess = (flowConfiguration["recordProcess"] as? Bool) ?? true
-            
+                
+                
             configuration.flowConfiguration = ondatoFlowConfiguration;
             
         }
@@ -141,16 +127,35 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
                 selectedLanguage = OndatoSDK.OndatoSupportedLanguage.DE
             case "lt":
                 selectedLanguage = OndatoSDK.OndatoSupportedLanguage.LT
+            case "lv":
+                selectedLanguage = OndatoSDK.OndatoSupportedLanguage.LV
+            case "et":
+                selectedLanguage = OndatoSDK.OndatoSupportedLanguage.ET
+            case "ru":
+                selectedLanguage = OndatoSDK.OndatoSupportedLanguage.RU
+            case "sq":
+                selectedLanguage = OndatoSDK.OndatoSupportedLanguage.SQ
             default:
                 selectedLanguage = OndatoSDK.OndatoSupportedLanguage.EN
             }
             OndatoLocalizeHelper.language = selectedLanguage
         }
+//        English (en) 🇬🇧
+//        Lithuanian (lt) 🇱🇹
+//        German (de) 🇩🇪
+//        Latvian (lv) 🇱🇻
+//        Estonian (et) 🇪🇪
+//        Russian (ru) 🇷🇺
+//        Albanian (sq)
+        
+        
+        
+        
         
         DispatchQueue.main.async {
-            let sdk = OndatoService.shared.instantiateOndatoViewController()
+            let sdk = Ondato.sdk.instantiateOndatoViewController()
             sdk.modalPresentationStyle = .fullScreen
-            
+
             self.uiViewController.present(sdk, animated: true, completion: nil)
         }
     }
@@ -168,15 +173,15 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
                 
                 func flowDidFail(identificationId: String?, error: OndatoServiceError) {
                     print(error)
-                    result(["identificationId": identificationId, "error": String(error.rawValue)])
+                    result(["identificationId": identificationId, "error": error.message])
                 }  
             }
             let flowDelegate = FlowDelegate(r: flutterResult)
             return flowDelegate
         }()
         
-        OndatoService.shared.flowDelegate = delegate
-        
+        //OndatoService.shared.flowDelegate = delegate
+        Ondato.sdk.delegate = delegate
     }
 }
 

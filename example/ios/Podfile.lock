@@ -1,16 +1,16 @@
 PODS:
   - Flutter (1.0.0)
-  - ondato_skd (0.0.1):
+  - ondato_skd (2.1.0):
     - Flutter
-    - OndatoSDKiOS
-  - OndatoSDKiOS (1.6.4)
+    - OndatoSDKiOS (~> 1.8.9)
+  - OndatoSDKiOS (1.8.9)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - ondato_skd (from `.symlinks/plugins/ondato_skd/ios`)
 
 SPEC REPOS:
-  "git@github.com:jhionan/ondato-sdk-ios.git":
+  "git@ssh.dev.azure.com:v3/GKDigital/GKOne/ondato-sdk-ios":
     - OndatoSDKiOS
 
 EXTERNAL SOURCES:
@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/ondato_skd/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  ondato_skd: 08b552de0f2e568daa9456ea681b5d25871ac2bb
-  OndatoSDKiOS: 388233fa3ea341d7dc5ca82aa32c8750d91d43a0
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  ondato_skd: cf3df5226cf3b80733bffeb377ad68326ab06f94
+  OndatoSDKiOS: 4ca47f8e3fe32a1e6c1509a4a1b6f67bd9448bd4
 
-PODFILE CHECKSUM: 0a6e30747ac6c52ac2a350cf6bf8bb4ab333177d
+PODFILE CHECKSUM: 1aa33321b4053aea30f0cd8e3435787614f5858e
 
 COCOAPODS: 1.10.1
