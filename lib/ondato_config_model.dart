@@ -2,7 +2,16 @@ import 'dart:convert';
 import 'dart:ui';
 
 enum OndatoEnvironment { test, live }
-enum OndatoLanguage { en, de, lt }
+/* 
+English (en) 🇬🇧
+Lithuanian (lt) 🇱🇹
+German (de) 🇩🇪
+Latvian (lv) 🇱🇻
+Estonian (et) 🇪🇪
+Russian (ru) 🇷🇺
+Albanian (sq)
+ */
+enum OndatoLanguage { en, de, lt, lv, et, ru, sq }
 
 extension OndatoEnvironmentExt on OndatoEnvironment {
   String toMap() => this.toString().split('.').elementAt(1);
@@ -137,12 +146,6 @@ class OndatoIosAppearance {
   /// background color of the error message text color
   Color? errorTextColor;
 
-  /// regular text font
-  String? regularFontName;
-
-  /// medium text font
-  String? mediumFontName;
-
   Color? headerColor;
 
   Color? acceptButtonColor;
@@ -156,8 +159,6 @@ class OndatoIosAppearance {
     this.buttonTextColor,
     this.errorColor,
     this.errorTextColor,
-    this.regularFontName,
-    this.mediumFontName,
     this.headerColor,
     this.acceptButtonColor,
     this.declineButtonColor,
@@ -174,8 +175,6 @@ class OndatoIosAppearance {
       'buttonTextColor': buttonTextColor?.value,
       'errorColor': errorColor?.value,
       'errorTextColor': errorTextColor?.value,
-      'regularFontName': regularFontName,
-      'mediumFontName': mediumFontName,
       'headerColor': headerColor?.value,
       'acceptButtonColor': acceptButtonColor?.value,
       'declineButtonColor': declineButtonColor?.value,
