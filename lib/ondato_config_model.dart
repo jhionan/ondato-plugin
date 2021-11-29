@@ -1,23 +1,30 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 enum OndatoEnvironment { test, live }
-enum OndatoLanguage { en, de, lt }
+/* 
+English (en) 🇬🇧
+Lithuanian (lt) 🇱🇹
+German (de) 🇩🇪
+Latvian (lv) 🇱🇻
+Estonian (et) 🇪🇪
+Russian (ru) 🇷🇺
+Albanian (sq)
+ */
+enum OndatoLanguage { en, de, lt, lv, et, ru, sq }
 
 extension OndatoEnvironmentExt on OndatoEnvironment {
-  String toMap() => this.toString().split('.')?.elementAt(1);
+  String toMap() => this.toString().split('.').elementAt(1);
 }
 
 extension OndatoLanguageExt on OndatoLanguage {
-  String toMap() => this.toString().split('.')?.elementAt(1);
+  String toMap() => this.toString().split('.').elementAt(1);
 }
 
 class OndatoServiceConfiguration {
-  OndatoIosAppearance appearance;
-  OndatoFlowConfiguration flowConfiguration;
-  OndatoEnvironment mode;
+  OndatoIosAppearance? appearance;
+  OndatoFlowConfiguration? flowConfiguration;
+  OndatoEnvironment? mode;
   OndatoLanguage language;
   OndataCredencials credentials;
 
@@ -26,27 +33,25 @@ class OndatoServiceConfiguration {
     this.flowConfiguration,
     this.mode = OndatoEnvironment.test,
     this.language = OndatoLanguage.en,
-    this.credentials,
-  }) : assert(credentials != null, 'Credencials must be provide');
+    required this.credentials,
+  });
 
   Map<String, dynamic> toMap() {
     return {
       'appearance': appearance?.toMap(),
       'flowConfiguration': flowConfiguration?.toMap(),
       'mode': mode?.toMap(),
-      'language': language?.toMap(),
-      'credentials': credentials?.toMap(),
+      'language': language.toMap(),
+      'credentials': credentials.toMap(),
     };
   }
 }
 
 class OndataCredencials {
   OndataCredencials({
-    @required this.accessToken,
-    @required this.identificationId,
-  })  : assert(
-            accessToken != null, 'Use or username and password or accessToken'),
-        assert(identificationId != null, 'IdentificationID must not be null');
+    required this.accessToken,
+    required this.identificationId,
+  });
   final String accessToken;
   final String identificationId;
 
@@ -79,16 +84,20 @@ class OndatoFlowConfiguration {
 
   /// Should the verification process be recorded
   bool recordProcess;
-  OndatoFlowConfiguration({
-    this.showSplashScreen = true,
-    this.showStartScreen = true,
-    this.showConsentScreen = true,
-    this.showSelfieAndDocumentScreen = true,
-    this.showSuccessWindow = true,
-    this.ignoreLivenessErrors = true,
-    this.ignoreVerificationErrors = true,
-    this.recordProcess = true,
-  });
+
+  /// As for back of drive licence
+  bool askDriverLicenseBackSide;
+
+  OndatoFlowConfiguration(
+      {this.showSplashScreen = true,
+      this.showStartScreen = true,
+      this.showConsentScreen = true,
+      this.showSelfieAndDocumentScreen = true,
+      this.showSuccessWindow = true,
+      this.ignoreLivenessErrors = true,
+      this.ignoreVerificationErrors = true,
+      this.recordProcess = true,
+      this.askDriverLicenseBackSide = true});
 
   Map<String, dynamic> toMap() {
     return {
@@ -100,12 +109,11 @@ class OndatoFlowConfiguration {
       'ignoreLivenessErrors': ignoreLivenessErrors,
       'ignoreVerificationErrors': ignoreVerificationErrors,
       'recordProcess': recordProcess,
+      'askDriverLicenseBackSide': askDriverLicenseBackSide,
     };
   }
 
   factory OndatoFlowConfiguration.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return OndatoFlowConfiguration(
       showSplashScreen: map['showSplashScreen'],
       showStartScreen: map['showStartScreen'],
@@ -121,34 +129,28 @@ class OndatoFlowConfiguration {
 
 class OndatoIosAppearance {
   /// Logo image that can be shown in the splash screen
-  String logoImageBase64;
+  String? logoImageBase64;
 
   /// background color of the `ProgressBarView` which guides the user through the flow
-  Color progressColor;
+  Color? progressColor;
 
   /// background color of the primary action buttons
-  Color buttonColor;
+  Color? buttonColor;
 
   /// background color of the primary action buttons text
-  Color buttonTextColor;
+  Color? buttonTextColor;
 
   /// background color of the error message background
-  Color errorColor;
+  Color? errorColor;
 
   /// background color of the error message text color
-  Color errorTextColor;
+  Color? errorTextColor;
 
-  /// regular text font
-  String regularFontName;
+  Color? headerColor;
 
-  /// medium text font
-  String mediumFontName;
+  Color? acceptButtonColor;
 
-  Color headerColor;
-
-  Color acceptButtonColor;
-
-  Color declineButtonColor;
+  Color? declineButtonColor;
 
   OndatoIosAppearance({
     this.logoImageBase64,
@@ -157,8 +159,6 @@ class OndatoIosAppearance {
     this.buttonTextColor,
     this.errorColor,
     this.errorTextColor,
-    this.regularFontName,
-    this.mediumFontName,
     this.headerColor,
     this.acceptButtonColor,
     this.declineButtonColor,
@@ -175,8 +175,6 @@ class OndatoIosAppearance {
       'buttonTextColor': buttonTextColor?.value,
       'errorColor': errorColor?.value,
       'errorTextColor': errorTextColor?.value,
-      'regularFontName': regularFontName,
-      'mediumFontName': mediumFontName,
       'headerColor': headerColor?.value,
       'acceptButtonColor': acceptButtonColor?.value,
       'declineButtonColor': declineButtonColor?.value,
@@ -185,7 +183,7 @@ class OndatoIosAppearance {
 }
 
 class OndatoException implements Exception {
-  OndatoError error;
+  OndatoError? error;
   String identificationId;
   OndatoException(this.identificationId, error) {
     switch (error) {
@@ -212,17 +210,14 @@ enum OndatoError {
 }
 
 class OndatoResponse {
-  bool success;
-  String identificationId;
-  String error; 
+  bool? success;
+  String? identificationId;
+  String? error;
   OndatoResponse({
-  this.success,
-  this.identificationId,
-  this.error,
+    this.success,
+    this.identificationId,
+    this.error,
   });
-  
-
-  
 
   Map<String, dynamic> toMap() {
     return {
@@ -242,8 +237,10 @@ class OndatoResponse {
 
   String toJson() => json.encode(toMap());
 
-  factory OndatoResponse.fromJson(String source) => OndatoResponse.fromMap(json.decode(source));
+  factory OndatoResponse.fromJson(String source) =>
+      OndatoResponse.fromMap(json.decode(source));
 
   @override
-  String toString() => 'OndatoResponse(success: $success, identificationId: $identificationId, error: $error)';
+  String toString() =>
+      'OndatoResponse(success: $success, identificationId: $identificationId, error: $error)';
 }
