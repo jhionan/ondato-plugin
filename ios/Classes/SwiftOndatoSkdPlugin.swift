@@ -37,6 +37,7 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
             create(call: call, flutterResult: result)
         case "startIdentification":
             startIdentification(flutterResult: result)
+            break
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -44,7 +45,10 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
     }
     
     func create(call:
-                    FlutterMethodCall, flutterResult: FlutterResult) -> Void {
+                    FlutterMethodCall, flutterResult: @escaping FlutterResult) -> Void {
+        Ondato.sdk.delegate = FlowDelegate(flutterResult: flutterResult).setDelegate()
+         
+        
         guard let args = call.arguments as? [String: Any] else {
             return}
         guard let credentials : Dictionary<String, Any> = args["credentials"] as? [String: Any] else {
@@ -161,27 +165,7 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
     }
     
     func startIdentification(flutterResult: @escaping  FlutterResult) {
-        weak var delegate: OndatoSDK.OndatoFlowDelegate? =  {() -> OndatoSDK.OndatoFlowDelegate in
-            class FlowDelegate : OndatoSDK.OndatoFlowDelegate {
-                private let result : FlutterResult
-                init(r: @escaping FlutterResult) {
-                    self.result = r
-                }
-                func flowDidSucceed(identificationId: String?) {
-                    result(["identificationId": identificationId])
-                }
-                
-                func flowDidFail(identificationId: String?, error: OndatoServiceError) {
-                    print(error)
-                    result(["identificationId": identificationId, "error": error.message])
-                }  
-            }
-            let flowDelegate = FlowDelegate(r: flutterResult)
-            return flowDelegate
-        }()
         
-        //OndatoService.shared.flowDelegate = delegate
-        Ondato.sdk.delegate = delegate
     }
 }
 
