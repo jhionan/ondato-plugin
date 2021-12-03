@@ -165,7 +165,7 @@ public class SwiftOndatoSkdPlugin: NSObject, FlutterPlugin {
     }
     
     func startIdentification(flutterResult: @escaping  FlutterResult) {
-        
+        Ondato.sdk.delegate = FlowDelegate(flutterResult: flutterResult).setDelegate()
     }
 }
 
